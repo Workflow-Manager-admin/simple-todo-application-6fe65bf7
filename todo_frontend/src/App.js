@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// PUBLIC_INTERFACE
+/*
+  To use the AddTodo component (see src/components/AddTodo.jsx for layout referencing Figma),
+  import as:
+    import AddTodo from "./components/AddTodo";
+  and include <AddTodo /> in your render (e.g., below the header).
+*/
+
 function App() {
   const [theme, setTheme] = useState('light');
 
@@ -41,6 +47,11 @@ function App() {
         >
           Learn React
         </a>
+        {/* Example usage of AddTodo component for demo purposes (commented out by default) */}
+        {/*
+          import AddTodo from "./components/AddTodo";
+          <AddTodo />
+        */}
       </header>
     </div>
   );
