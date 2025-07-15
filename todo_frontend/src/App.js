@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 // Import TodoPage and AddTodo components
 import TodoPage from "./components/TodoPage";
@@ -7,7 +6,6 @@ import AddTodo from "./components/AddTodo";
 
 /*
   This App renders:
-   - React logo at the very top always
    - Theme toggle in the top right
    - Both TodoPage ("Todo List" view) and AddTodo ("Add Task" view) below
    - Both sections are clearly labeled and have a simple, responsive layout
@@ -39,9 +37,6 @@ function App() {
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </button>
         
-        {/* React Logo (top, prominent) */}
-        <img src={logo} className="App-logo" alt="logo" style={{marginBottom: '0.3em'}} />
-
         {/* Main Content Container: Shows both TodoPage and AddTodo */}
         <div className="todo-section-container">
           {/* === SECTION: Todo List / Page === */}
@@ -68,14 +63,6 @@ function App() {
           <p>
             Current theme: <strong>{theme}</strong>
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </div>
       </header>
     </div>
