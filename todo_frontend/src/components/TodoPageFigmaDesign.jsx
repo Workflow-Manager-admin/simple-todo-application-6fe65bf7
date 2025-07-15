@@ -314,103 +314,315 @@ function TodoPageFigmaDesign() {
   }
 
   // Add/Edit panel floating above
+  // Update to visually match Figma "ADD TODO" (20250715_112202_figma_9739.json)
   function AddEditPanel({ editing }) {
+    // Figma colors
+    const ADD_MODAL_BG = "#fff";
+    const ADD_APPBAR_BG = "#9395d3"; // appBar/main accent
+    const ADD_TITLE_COLOR = "#fff";
+    const FIELD_LABEL_COLOR = "#8b8787";
+    const FIELD_INPUT_COLOR = "#373737";
+    const FIELD_UNDERLINE_COLOR = "#8b8787";
+    const ADD_BTN_BG = "#9395d3";
+    const ADD_BTN_TEXT = "#fff";
+    const ADD_BTN_RADIUS = 15;
+    const ADD_BTN_SHADOW = "0 4px 4px 0 rgba(0,0,0,0.25)";
+    const CANCEL_BTN_BG = "#e3e4ee";
+    const CANCEL_BTN_TEXT = "#666";
     return (
       <div
         style={{
           position: "absolute",
-          top: 60,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 350,
-          background: "#fff",
-          borderRadius: 16,
-          boxShadow: "0 6px 18px rgba(30,17,100,0.16)",
-          padding: "26px 26px 18px 26px",
-          zIndex: 100,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center"
+          top: 0,
+          left: 0,
+          width: 414,
+          height: 896,
+          zIndex: 200,
+          background: "rgba(255,255,255, 0.96)",
+          borderRadius: 0,
+          display: "block",
+          boxShadow: "0 0 0 6px rgba(147,149,211,0.045)", // subtle outer border
+          overflow: "hidden"
         }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={editing ? "Edit Todo" : "Add Todo"}
       >
-        <div style={{marginBottom:12,fontSize:18,fontWeight:700,color:PRIMARY_ACCENT}}>
-          {editing ? "Edit Todo" : "Add Todo"}
+        {/* Status bar (matches page) */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: -7,
+            width: 429,
+            height: 44,
+            zIndex: 10,
+            background: "rgba(0,0,0,0)",
+          }}
+        >
+          {/* Optionally replicate icons. For now, faint background bar. */}
+          <div
+            style={{
+              position: "absolute",
+              left: 18,
+              top: 8,
+              width: 56,
+              height: 12,
+              borderRadius: 10,
+              background: "rgba(240,240,240,0.55)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              right: 24,
+              top: 8,
+              width: 80,
+              height: 12,
+              borderRadius: 10,
+              background: "rgba(240,240,240,0.55)",
+            }}
+          />
         </div>
-        <input
-          ref={inputTitleRef}
-          type="text"
-          value={inputTitle}
-          onChange={e => setInputTitle(e.target.value)}
-          placeholder="Title"
-          maxLength={64}
+        {/* AppBar/header - Figma top bar */}
+        <div
           style={{
-            width: "90%",
-            fontSize: 15.5,
-            padding: "10px 8px",
-            borderRadius: 8,
-            outline: "none",
-            border: "1.5px solid #c5c7e3",
-            marginBottom: 10,
-            background: "#fcfcfe",
-            color: "#373737"
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 414,
+            height: 118,
+            background: ADD_APPBAR_BG,
+            zIndex: 12,
+            boxShadow: "0 1.5px 6px 0 rgba(0,0,0,0.06)",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 28px"
           }}
-          onKeyDown={handleInputKeyDown}
-        />
-        <input
-          type="text"
-          value={inputDetail}
-          onChange={e => setInputDetail(e.target.value)}
-          placeholder="Detail"
-          maxLength={86}
-          style={{
-            width: "90%",
-            fontSize: 14,
-            padding: "8px",
-            borderRadius: 8,
-            outline: "none",
-            border: "1.5px solid #c5c7e3",
-            marginBottom: 16,
-            background: "#fcfcfe",
-            color: "#373737"
-          }}
-          onKeyDown={handleInputKeyDown}
-        />
-        <div style={{display:"flex",flexDirection:"row",gap:14,justifyContent:"center"}}>
-          <button
+        >
+          {/* "Back" button (not functional) */}
+          <div
             style={{
-              background: PRIMARY_ACCENT,
-              color: "#fff",
-              border: "none",
-              borderRadius: 8,
-              padding: "10px 20px",
-              fontWeight: 700,
-              fontSize: 15,
-              cursor: inputTitle.trim() ? "pointer" : "not-allowed",
-              opacity: inputTitle.trim() ? 1 : 0.7,
-              boxShadow: "0 1.5px 6px 0 rgba(0,0,0,0.08)"
+              width: 46,
+              height: 46,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
             }}
-            onClick={editing ? () => handleEditConfirm(editId) : handleAddConfirm}
-            disabled={!inputTitle.trim()}
-          >
-            {editing ? "Save" : "Add"}
-          </button>
-          <button
-            style={{
-              background: "#e3e4ee",
-              color: "#666",
-              border: "none",
-              borderRadius: 8,
-              padding: "10px 20px",
-              fontWeight: 600,
-              fontSize: 15,
-              marginLeft: 5,
-              cursor: "pointer"
-            }}
+            title="Back"
+            tabIndex={0}
+            aria-label="Back"
             onClick={handleCancel}
+            onKeyDown={e => { if (e.key === "Enter" || e.key === "Escape") handleCancel(); }}
           >
-            Cancel
-          </button>
+            {/* Back chevron */}
+            <svg width="26" height="36" viewBox="0 0 25 34">
+              <polyline
+                points="20,4 9,17 20,30"
+                style={{
+                  fill: "none",
+                  stroke: "#fff",
+                  strokeWidth: 4,
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                }}
+              />
+            </svg>
+          </div>
+          {/* Figma "Add Task" title */}
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span
+              style={{
+                color: ADD_TITLE_COLOR,
+                fontWeight: 700,
+                fontSize: 24,
+                letterSpacing: ".05em",
+                lineHeight: "32px",
+                textShadow: "0 1.5px 3px #8883",
+              }}
+            >
+              {editing ? "Edit Task" : "Add Task"}
+            </span>
+          </div>
+          {/* No trailing icon, just placeholder */}
+          <div style={{ width: 44, height: 44 }} />
         </div>
+
+        {/* ADD TODO FIELDS - styled per Figma layout */}
+        <div
+          style={{
+            position: "absolute",
+            top: 165,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 356,
+            zIndex: 30,
+            background: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "stretch"
+          }}
+        >
+          {/* Title Field */}
+          <div style={{ marginBottom: 36, position: "relative", width: "100%" }}>
+            <label
+              htmlFor="new-todo-title"
+              style={{
+                fontSize: 17,
+                fontWeight: 500,
+                color: FIELD_LABEL_COLOR,
+                marginBottom: 1,
+                display: "block",
+                letterSpacing: ".01em"
+              }}
+            >
+              Title
+            </label>
+            <input
+              id="new-todo-title"
+              ref={inputTitleRef}
+              type="text"
+              value={inputTitle}
+              onChange={e => setInputTitle(e.target.value)}
+              maxLength={60}
+              placeholder="Enter title"
+              style={{
+                width: "100%",
+                border: "none",
+                outline: "none",
+                fontSize: 17,
+                fontWeight: 500,
+                color: FIELD_INPUT_COLOR,
+                background: "transparent",
+                padding: "9px 0 7px 0",
+                margin: "0",
+                borderBottom: `1.55px solid ${FIELD_UNDERLINE_COLOR}`
+              }}
+              onKeyDown={handleInputKeyDown}
+              autoFocus
+            />
+          </div>
+          {/* Detail Field */}
+          <div style={{ marginBottom: 44, position: "relative", width: "100%" }}>
+            <label
+              htmlFor="new-todo-detail"
+              style={{
+                fontSize: 15.2,
+                fontWeight: 400,
+                color: FIELD_LABEL_COLOR,
+                marginBottom: 2,
+                display: "block",
+                letterSpacing: "0"
+              }}
+            >
+              Detail
+            </label>
+            <input
+              id="new-todo-detail"
+              type="text"
+              value={inputDetail}
+              onChange={e => setInputDetail(e.target.value)}
+              maxLength={85}
+              placeholder="Enter details"
+              style={{
+                width: "100%",
+                border: "none",
+                outline: "none",
+                fontSize: 15.5,
+                fontWeight: 400,
+                color: FIELD_INPUT_COLOR,
+                background: "transparent",
+                padding: "9px 0 7px 0",
+                margin: "0",
+                borderBottom: `1.2px solid ${FIELD_UNDERLINE_COLOR}`
+              }}
+              onKeyDown={handleInputKeyDown}
+            />
+          </div>
+          {/* Add and Cancel Buttons */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 16,
+              width: "100%",
+              justifyContent: "center"
+            }}
+          >
+            {/* Add/Save Button */}
+            <button
+              style={{
+                flex: "1 0 0",
+                background: ADD_BTN_BG,
+                color: ADD_BTN_TEXT,
+                border: "none",
+                borderRadius: ADD_BTN_RADIUS,
+                boxShadow: ADD_BTN_SHADOW,
+                fontWeight: 700,
+                fontSize: 19,
+                letterSpacing: "0.01em",
+                height: 53,
+                margin: 0,
+                cursor: inputTitle.trim() ? "pointer" : "not-allowed",
+                opacity: inputTitle.trim() ? 1 : 0.70
+              }}
+              onClick={editing ? () => handleEditConfirm(editId) : handleAddConfirm}
+              disabled={!inputTitle.trim()}
+              aria-label={editing ? "Save" : "Add"}
+            >
+              {editing ? "Save" : "ADD"}
+            </button>
+            {/* Cancel Button */}
+            <button
+              style={{
+                flex: "1 0 0",
+                background: CANCEL_BTN_BG,
+                color: CANCEL_BTN_TEXT,
+                border: "none",
+                borderRadius: ADD_BTN_RADIUS,
+                fontWeight: 600,
+                fontSize: 19,
+                height: 53,
+                letterSpacing: "0.01em",
+                margin: 0,
+                marginLeft: 14,
+                cursor: "pointer",
+                boxShadow: "0 1.5px 4px 0 rgba(100,100,140,0.08)"
+              }}
+              onClick={handleCancel}
+              aria-label="Cancel"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+        {/* Design faint background preview to visually align */}
+        <img
+          src="https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/8dadd684-b363-49d3-8051-f7185df4d4af"
+          alt=""
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            opacity: 0.12,
+            pointerEvents: "none",
+            userSelect: "none",
+            zIndex: 40
+          }}
+          aria-hidden="true"
+        />
       </div>
     );
   }
