@@ -10,7 +10,10 @@ import "./components/AddEditTodoModal.css"; // Styles for modal
 
 /**
  * PUBLIC_INTERFACE
- * Renders the main TODO Page for the todo application, now with "add/edit" modal flows & handlers as per requirements.
+ * Renders the main TODO Page for the todo application, with "add/edit" modal flows,
+ * and bottom navigation bar optionally injected for navigation switching.
+ * Props:
+ *  - NavigationBarComponent: optional, component or function to render navigation bar, should handle selected/onSelect
  */
 const INITIAL_TODOS_DEMO = [
   { id: 1, title: "Buy groceries", description: "Milk, eggs, bread, and fruits", status: "pending" },
@@ -22,7 +25,7 @@ const INITIAL_TODOS_DEMO = [
 
 let nextId = 6;
 
-export default function TodoPage() {
+export default function TodoPage({ NavigationBarComponent }) {
   // Main todos state
   const [todos, setTodos] = useState(INITIAL_TODOS_DEMO);
 
@@ -87,6 +90,9 @@ export default function TodoPage() {
     );
   };
 
+  // Select which NavigationBar to render (prop or default)
+  const Nav = NavigationBarComponent || NavigationBar;
+
   return (
     <div className="todo-page-bg">
       <StatusBar />
@@ -98,7 +104,7 @@ export default function TodoPage() {
         onToggleComplete={toggleComplete}
       />
       <FloatingActionButton onClick={openAddModal} />
-      <NavigationBar />
+      <Nav selected="all" />
       {/* Modal (add/edit) flows */}
       <AddEditTodoModal
         open={modal.open}

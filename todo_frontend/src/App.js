@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import TodoPage from "./TodoPage";
+import CompletedTasksPage from "./CompletedTasksPage";
 
 /**
  * PUBLIC_INTERFACE
  * The root App component.
- * Renders the main TodoPage as the sole content.
- * All default starter code and React logo content have been removed.
+ * Top-level handles navigation between "All Tasks" and "Completed Tasks" via bottom navigation bar.
  */
+import NavigationBar from "./components/NavigationBar";
+
 function App() {
+  const [page, setPage] = useState("all"); // "all" | "completed"
+
+  const handleNavSelect = (nav) => setPage(nav);
+
+  // Wrapper for injecting nav handlers/selected state
+  const NavBarImpl = (props) => (
+    <NavigationBar selected={page} onSelect={handleNavSelect} {...props} />
+  );
+
   return (
     <div className="App">
-      <TodoPage />
+      {page === "all" ? (
+        <TodoPage NavigationBarComponent={NavBarImpl} />
+      ) : (
+        <CompletedTasksPage NavigationBarComponent={NavBarImpl} />
+      )}
     </div>
   );
 }
