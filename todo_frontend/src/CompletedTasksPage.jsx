@@ -18,6 +18,8 @@ import TaskCard from "./components/TaskCard";
  *  - NavigationBarComponent: optional, for navigation control
  */
 export default function CompletedTasksPage({ NavigationBarComponent, todos = [] }) {
+  // Filter for completed todos inside, to guarantee re-render on shared state update
+  const completedTodos = todos.filter(td => td.status === "completed");
   const Nav = NavigationBarComponent || NavigationBar;
 
   return (
@@ -75,12 +77,12 @@ export default function CompletedTasksPage({ NavigationBarComponent, todos = [] 
         alignItems: "center",
         minHeight: 470,
       }} aria-label="Completed Tasks List">
-        {todos.length === 0 ? (
+        {completedTodos.length === 0 ? (
           <div style={{ color: "#9395D3", fontWeight: 500, fontSize: 18, marginTop: 32 }}>
             No completed tasks.
           </div>
         ) : (
-          todos.map((t) => (
+          completedTodos.map((t) => (
             <TaskCard
               key={t.id}
               title={t.title}
