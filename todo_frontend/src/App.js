@@ -52,6 +52,12 @@ function App() {
           import AddTodo from "./components/AddTodo";
           <AddTodo />
         */}
+
+        {/* Example usage of TodoPage component matching Figma's TODO PAGE frame (commented out by default) */}
+        {/*
+          import TodoPage from "./components/TodoPage";
+          <TodoPage />
+        */}
       </header>
     </div>
   );
