@@ -3,6 +3,7 @@ import './App.css';
 // Import TodoPage and AddTodo components
 import TodoPage from "./components/TodoPage";
 import AddTodo from "./components/AddTodo";
+import TodoPageFigmaDesign from "./components/TodoPageFigmaDesign";
 
 /*
   This App renders:
@@ -44,6 +45,9 @@ function App() {
             {/* -- Start TodoPage Section -- */}
             <h2 className="section-title">Todo List (Preview)</h2>
             <TodoPage />
+            {/* Figma DESIGN: Full layout matching Figma */}
+            <h2 className="section-title" style={{marginTop:32, color:"#9395d3"}}>TodoPageFigmaDesign (Figma style)</h2>
+            <TodoPageFigmaDesign />
             {/* -- End TodoPage Section -- */}
           </section>
           {/* === SECTION: Add Todo === */}
