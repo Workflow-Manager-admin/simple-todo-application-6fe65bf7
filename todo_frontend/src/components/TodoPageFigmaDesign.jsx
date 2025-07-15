@@ -606,23 +606,7 @@ function TodoPageFigmaDesign() {
             </button>
           </div>
         </div>
-        {/* Design faint background preview to visually align */}
-        <img
-          src="https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/8dadd684-b363-49d3-8051-f7185df4d4af"
-          alt=""
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.12,
-            pointerEvents: "none",
-            userSelect: "none",
-            zIndex: 40
-          }}
-          aria-hidden="true"
-        />
+        {/* No background/overlay image – Coded layout only */}
       </div>
     );
   }
@@ -910,23 +894,7 @@ function TodoPageFigmaDesign() {
         </svg>
       </div>
 
-      {/* --- Figma Preview Image as faint background --- */}
-      <img
-        src="https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/87d1f6f4-f81b-44ed-82a1-8901c6b4aac7"
-        alt="Figma design preview"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          opacity: 0.07,
-          pointerEvents: "none",
-          userSelect: "none",
-          zIndex: 1,
-        }}
-        aria-hidden="true"
-      />
+      {/* No faint Figma overlay image – all UI is coded/remains styled as per specs only */}
     </div>
   );
 }
