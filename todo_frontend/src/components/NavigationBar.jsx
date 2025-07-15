@@ -9,6 +9,7 @@ import "./NavigationBar.css";
  *   - onSelect: function(page: string)
  */
 export default function NavigationBar({ selected = "all", onSelect }) {
+  // DESIGN: 2 nav items, pixel-perfect, use updated class tokens for look/spacing
   return (
     <div className="navigation-bar">
       <div

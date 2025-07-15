@@ -6,14 +6,14 @@ import "./AppBar.css";
  * AppBar for the todos app: has calendar icon, title, and trailing icon holders.
  */
 export default function AppBar() {
+  // DESIGN: large appbar with title centered, all spacing handled by CSS
   return (
     <div className="app-bar">
-      {/* Leading icon (calendar) */}
-      <span className="app-bar-icon calendar" />
-      {/* Title */}
-      <span className="app-bar-title">Todo App</span>
-      {/* Trailing icon - placeholder for future actions */}
-      <span className="app-bar-icon settings" />
+      <div className="app-bar-content">
+        <span className="app-bar-icon calendar" />
+        <span className="app-bar-title">Todo App</span>
+        <span className="app-bar-icon settings" />
+      </div>
     </div>
   );
 }

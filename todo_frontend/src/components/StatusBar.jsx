@@ -7,9 +7,9 @@ import "./StatusBar.css";
  * Styles and spacing visually match the Figma top bar.
  */
 export default function StatusBar() {
+  // DESIGN: Absolutely positioned, slightly overflowing left/right, standard time + 3 fake icons
   return (
     <div className="status-bar">
-      {/* Typically shown: time and icons */}
       <span className="sb-time">9:41</span>
       <span className="sb-icons">
         <span className="sb-icon-wifi" />

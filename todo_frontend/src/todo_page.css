@@ -1,175 +1,288 @@
+:root {
+  --bg-canvas: #d6d7ef;
+  --card-bg: #fff;
+  --accent-main: #9395d3;
+  --text-main: #000;
+  --shadow: 0px 4px 4px rgba(0,0,0,0.25);
+  --card-radius: 15px;
+  --fab-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+}
+
 .todo-page-bg {
   width: 414px;
   height: 896px;
-  background: #d6d7ef;
+  background: var(--bg-canvas);
+  min-width: 414px;
+  min-height: 896px;
   position: relative;
   overflow: hidden;
   border-radius: 0;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Status Bar */
 .status-bar {
   height: 44px;
-  width: 100%;
+  width: 429px;
   background: transparent;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0 16px;
-  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: -7px;
   font-size: 16px;
   color: #000;
+  z-index: 30;
 }
-.sb-time { font-weight: 600; }
-.sb-icons { display: flex; gap: 6px; }
+.sb-time {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.sb-icons {
+  display: flex;
+  gap: 6px;
+}
 .sb-icon-wifi, .sb-icon-cellular, .sb-icon-battery {
-  width: 18px; height: 18px;
+  width: 18px;
+  height: 18px;
   background: #bdbdbd;
   border-radius: 2px;
   display: inline-block;
 }
-/* App Bar */
+
 .app-bar {
-  height: 74px;
-  width: 100%;
-  background: #9395d3;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  height: 118px;
+  width: 414px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 44px;
+  left: 0;
+  z-index: 25;
+  padding: 0;
+  margin: 0;
+}
+.app-bar-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 24px 24px 0 24px;
+  height: 100%;
+  width: 100%;
+  background: var(--accent-main);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  justify-content: center;
 }
-.app-bar-title {
+.app-bar-title, .app-bar-header-title {
   color: #fff;
   font-size: 26px;
   font-weight: 700;
   letter-spacing: 1px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 .app-bar-icon {
-  width: 32px; height: 32px;
-  background: #fff2;
+  width: 32px;
+  height: 32px;
+  background: #d6d7ef;
   border-radius: 50%;
   display: inline-block;
 }
-.app-bar-icon.calendar {
-  background: #d6d7ef;
-}
-.app-bar-icon.settings {
-  background: #d6d7ef;
-}
 
-/* Todos List */
 .todos-list {
-  width: 92%;
-  margin: 24px auto 0 auto;
+  position: absolute;
+  top: 176px;
+  left: 7px;
+  width: 400px;
+  max-width: 400px;
+  min-width: 400px;
+  height: 494px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-height: 470px;
+  gap: 18px;
   overflow-y: auto;
+  padding: 0;
 }
-.todo-item {
-  width: 100%;
-  min-height: 60px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(147, 149, 211, 0.06);
+
+.todo-item,
+.task-card {
+  width: 400px;
+  min-height: 82px;
+  max-width: 400px;
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 16px;
+  margin: 0 auto 0 auto;
+  margin-bottom: 0;
+}
+
+.todo-item {
+  flex-direction: row;
   align-items: center;
-  padding: 0 20px;
+  gap: 0;
+  min-height: 82px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
-  font-weight: 500;
-  color: #262626;
+  font-weight: 700;
+  color: var(--accent-main);
+  box-shadow: var(--shadow);
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  position: relative;
+  letter-spacing: normal;
+  line-height: 21px;
   transition: background 0.2s;
 }
 .todo-item.completed {
   background: #e0e0e0;
-  text-decoration: line-through;
   color: #9395d3;
+  text-decoration: line-through;
 }
 .todo-check {
   width: 32px;
+  font-size: 26px;
+  margin-right: 12px;
   display: inline-block;
-  font-size: 21px;
 }
 .todo-text {
   flex: 1;
+  font-size: 18px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  color: var(--accent-main);
+  letter-spacing: normal;
+  line-height: 21px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Floating Action Button */
+.task-card-title {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-main);
+  margin-bottom: 4px;
+  line-height: 21px;
+}
+.task-card-subtitle {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-main);
+  line-height: 17px;
+}
+
 .fab-btn {
   position: absolute;
   right: 32px;
-  bottom: 100px;
+  bottom: 104px;
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: #9395d3;
-  box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+  background: var(--accent-main);
+  box-shadow: var(--fab-shadow);
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 20;
   cursor: pointer;
   transition: background 0.2s;
+  outline: none;
 }
-.fab-btn:hover {
+.fab-btn:hover, .fab-btn:focus {
   background: #7678b9;
 }
 .fab-plus {
   display: inline-block;
   color: #fff;
   font-size: 40px;
-  margin-top: -4px;
   line-height: 1;
+  font-weight: 700;
+  margin-top: -2px;
+  user-select: none;
 }
 
-/* Navigation Bar */
 .navigation-bar {
   position: absolute;
   left: 0;
   bottom: 0;
+  width: 414px;
   height: 68px;
-  width: 100%;
   background: #fff;
-  box-shadow: 0 -2px 8px rgba(147, 149, 211, 0.13);
+  box-shadow: 0 -2px 8px rgba(147,149,211,0.13);
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  z-index: 10;
+  justify-content: space-between;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 15;
+  padding: 0 12px;
+  gap: 0;
 }
 .nav-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 6px 12px;
+  padding: 6px 22px;
   border-radius: 16px;
   cursor: pointer;
   color: #545289;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  transition: background 0.2s, color 0.2s;
+  background: transparent;
+  border: none;
+  transition: background 0.15s, color 0.15s;
+  outline: none;
 }
-.nav-btn.selected, .nav-btn:hover {
+.nav-btn.selected, .nav-btn:hover, .nav-btn:focus {
   background: #d6d7ef;
-  color: #9395d3;
+  color: var(--accent-main);
 }
 .nav-icon {
   width: 28px;
   height: 28px;
-  background: #9395d3;
+  background: var(--accent-main);
   border-radius: 5px;
   display: inline-block;
 }
-.nav-label { margin-top: 1px; }
+.nav-label {
+  margin-top: 1px;
+  font-size: 14px;
+  font-weight: 500;
+}
 
-/* Smaller screens */
+.todo-item-actions {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+.todo-action-btn {
+  background: none;
+  border: none;
+  color: var(--accent-main);
+  font-size: 23px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.18s;
+  padding: 4px 4px;
+}
+.todo-action-btn:hover, .todo-action-btn:focus {
+  background: #dadbf6;
+}
+
 @media (max-width: 500px) {
   .todo-page-bg {
     width: 100vw;
@@ -178,4 +291,24 @@
     min-height: 100vh;
     border-radius: 0;
   }
+  .todos-list, .todo-item, .task-card {
+    width: 96vw !important;
+    min-width: unset;
+    max-width: unset;
+  }
+  .fab-btn {
+    right: 6vw;
+    bottom: 98px;
+  }
+  .navigation-bar {
+    width: 100vw;
+    min-width: 100vw;
+    left: 0;
+    padding: 0 3vw;
+  }
+}
+
+:focus {
+  outline: 2px solid #9395d3;
+  outline-offset: 3px;
 }

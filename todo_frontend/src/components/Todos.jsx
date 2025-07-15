@@ -57,36 +57,39 @@ export default function Todos({
   return (
     <div className="todos-list">
       {todos.map((todo) => (
-        <div key={todo.id} className={`todo-item${statusToCompleted(todo.status) ? " completed" : ""}`}>
+        <div
+          key={todo.id}
+          className={`todo-item${statusToCompleted(todo.status) ? " completed" : ""}`}
+        >
           <span
             className="todo-check"
             role="button"
             tabIndex={0}
             aria-label={statusToCompleted(todo.status) ? "Mark as pending" : "Mark as completed"}
             onClick={() => onToggleComplete && onToggleComplete(todo.id)}
-            style={{ cursor: "pointer", marginRight: 10 }}
+            style={{ cursor: "pointer" }}
           >
-            <CompleteIcon active={statusToCompleted(todo.status)}/>
+            <CompleteIcon active={statusToCompleted(todo.status)} />
           </span>
-          <span className="todo-text" title={todo.description || todo.title}>{todo.title}</span>
-          <span className="todo-item-actions" style={{ marginLeft: "auto", display: "flex", gap: 9 }}>
+          <span className="todo-text" title={todo.description || todo.title}>
+            {todo.title}
+          </span>
+          <span className="todo-item-actions">
             <button
               className="todo-action-btn"
               aria-label="Edit"
               tabIndex={0}
-              style={{ background: "none", border: "none", cursor: "pointer" }}
               onClick={() => onEdit && onEdit(todo)}
             >
-              <EditIcon/>
+              <EditIcon />
             </button>
             <button
               className="todo-action-btn"
               aria-label="Delete"
               tabIndex={0}
-              style={{ background: "none", border: "none", cursor: "pointer" }}
               onClick={() => onDelete && onDelete(todo.id)}
             >
-              <DeleteIcon/>
+              <DeleteIcon />
             </button>
           </span>
         </div>

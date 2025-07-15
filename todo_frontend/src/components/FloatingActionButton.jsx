@@ -8,6 +8,7 @@ import "./FloatingActionButton.css";
  *    - onClick: function
  */
 export default function FloatingActionButton({ onClick }) {
+  // DESIGN: FAB - absolutely positioned, class-only, no custom styles in JSX, shadow handled in CSS.
   return (
     <button className="fab-btn" aria-label="Add Task" onClick={onClick} tabIndex={0}>
       <span className="fab-plus">+</span>
