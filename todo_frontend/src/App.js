@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+// Import TodoPage and AddTodo components
+import TodoPage from "./components/TodoPage";
+import AddTodo from "./components/AddTodo";
 
 /*
-  To use the AddTodo component (see src/components/AddTodo.jsx for layout referencing Figma),
-  import as:
-    import AddTodo from "./components/AddTodo";
-  and include <AddTodo /> in your render (e.g., below the header).
+  This App renders:
+   - React logo at the very top always
+   - Theme toggle in the top right
+   - Both TodoPage ("Todo List" view) and AddTodo ("Add Task" view) below
+   - Both sections are clearly labeled and have a simple, responsive layout
+   - Todos and AddTodo are stacked on small screens and side-by-side on wider
 */
 
 function App() {
@@ -24,7 +29,8 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header app-main-header">
+        {/* Theme Toggle Button */}
         <button 
           className="theme-toggle" 
           onClick={toggleTheme}
@@ -32,32 +38,45 @@ function App() {
         >
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Current theme: <strong>{theme}</strong>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {/* Example usage of AddTodo component for demo purposes (commented out by default) */}
-        {/*
-          import AddTodo from "./components/AddTodo";
-          <AddTodo />
-        */}
+        
+        {/* React Logo (top, prominent) */}
+        <img src={logo} className="App-logo" alt="logo" style={{marginBottom: '0.3em'}} />
 
-        {/* Example usage of TodoPage component matching Figma's TODO PAGE frame (commented out by default) */}
-        {/*
-          import TodoPage from "./components/TodoPage";
-          <TodoPage />
-        */}
+        {/* Main Content Container: Shows both TodoPage and AddTodo */}
+        <div className="todo-section-container">
+          {/* === SECTION: Todo List / Page === */}
+          <section className="todo-section">
+            {/* -- Start TodoPage Section -- */}
+            <h2 className="section-title">Todo List (Preview)</h2>
+            <TodoPage />
+            {/* -- End TodoPage Section -- */}
+          </section>
+          {/* === SECTION: Add Todo === */}
+          <section className="addtodo-section">
+            {/* -- Start AddTodo Section -- */}
+            <h2 className="section-title">Add New Todo (Preview)</h2>
+            <AddTodo />
+            {/* -- End AddTodo Section -- */}
+          </section>
+        </div>
+
+        {/* Supporting info / code instructions */}
+        <div style={{marginTop: 24, fontSize: "1rem", color: "var(--text-secondary)"}}>
+          <p>
+            Both the Todo List (<code>TodoPage</code>) and Add Todo (<code>AddTodo</code>) components are rendered above.
+          </p>
+          <p>
+            Current theme: <strong>{theme}</strong>
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </div>
       </header>
     </div>
   );
