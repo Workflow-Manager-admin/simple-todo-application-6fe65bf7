@@ -14,21 +14,20 @@ import "./components/AddEditTodoModal.css"; // Styles for modal
  * and bottom navigation bar optionally injected for navigation switching.
  * Props:
  *  - NavigationBarComponent: optional, component or function to render navigation bar, should handle selected/onSelect
+ *  - todos: array of todo objects
+ *  - addTodo: function({title, description, status}) => void
+ *  - editTodo: function(todoId, updatedFields) => void
+ *  - deleteTodo: function(todoId) => void
+ *  - onToggleComplete: function(todoId) => void
  */
-const INITIAL_TODOS_DEMO = [
-  { id: 1, title: "Buy groceries", description: "Milk, eggs, bread, and fruits", status: "pending" },
-  { id: 2, title: "Walk the dog", description: "At the park", status: "completed" },
-  { id: 3, title: "Read a book", description: "", status: "pending" },
-  { id: 4, title: "Write code", description: "Finish frontend modal logic", status: "overdue" },
-  { id: 5, title: "Meet John", description: "Zoom call at 8pm", status: "pending" },
-];
-
-let nextId = 6;
-
-export default function TodoPage({ NavigationBarComponent }) {
-  // Main todos state
-  const [todos, setTodos] = useState(INITIAL_TODOS_DEMO);
-
+export default function TodoPage({
+  NavigationBarComponent,
+  todos,
+  addTodo,
+  editTodo,
+  deleteTodo,
+  onToggleComplete,
+}) {
   // Modal state: { open, mode, todo? }
   const [modal, setModal] = useState({ open: false, mode: "add", todo: null });
 
@@ -45,49 +44,25 @@ export default function TodoPage({ NavigationBarComponent }) {
     setModal((m) => ({ ...m, open: false }));
 
   // Add new todo
-  const addTodo = (data) => {
-    setTodos([
-      ...todos,
-      {
-        id: nextId++,
-        ...data,
-      },
-    ]);
+  const handleAddTodo = (data) => {
+    addTodo(data);
     closeModal();
   };
 
   // Save update to existing todo
-  const saveEditTodo = (updated) => {
-    setTodos((curr) =>
-      curr.map((td) =>
-        td.id === modal.todo.id ? { ...td, ...updated } : td
-      )
-    );
+  const handleSaveEditTodo = (updated) => {
+    if (modal.todo) {
+      editTodo(modal.todo.id, updated);
+    }
     closeModal();
   };
 
-  // Delete todo
-  const deleteTodo = (todoId) => {
-    if (
-      !modal.open ||
-      (modal.mode === "edit" && modal.todo?.id !== todoId)
-    ) return; // Prevent deletes not in modal
-    setTodos((curr) => curr.filter((td) => td.id !== todoId));
+  // Delete todo (from modal only)
+  const handleDeleteTodo = () => {
+    if (modal.mode === "edit" && modal.todo) {
+      deleteTodo(modal.todo.id);
+    }
     closeModal();
-  };
-
-  // Toggle complete
-  const toggleComplete = (todoId) => {
-    setTodos((curr) =>
-      curr.map((td) =>
-        td.id === todoId
-          ? {
-              ...td,
-              status: td.status === "completed" ? "pending" : "completed",
-            }
-          : td
-      )
-    );
   };
 
   // Select which NavigationBar to render (prop or default)
@@ -100,8 +75,8 @@ export default function TodoPage({ NavigationBarComponent }) {
       <Todos
         todos={todos}
         onEdit={openEditModal}
-        onDelete={(id) => setTodos((curr) => curr.filter((td) => td.id !== id))}
-        onToggleComplete={toggleComplete}
+        onDelete={deleteTodo}
+        onToggleComplete={onToggleComplete}
       />
       <FloatingActionButton onClick={openAddModal} />
       <Nav selected="all" />
@@ -111,10 +86,10 @@ export default function TodoPage({ NavigationBarComponent }) {
         mode={modal.mode}
         initial={modal.mode === "edit" ? modal.todo : undefined}
         onDismiss={closeModal}
-        onSubmit={modal.mode === "add" ? addTodo : saveEditTodo}
+        onSubmit={modal.mode === "add" ? handleAddTodo : handleSaveEditTodo}
         onDelete={
           modal.mode === "edit"
-            ? () => deleteTodo(modal.todo.id)
+            ? handleDeleteTodo
             : undefined
         }
       />

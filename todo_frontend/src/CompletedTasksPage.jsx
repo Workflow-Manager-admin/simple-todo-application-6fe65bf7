@@ -1,7 +1,6 @@
 import React from "react";
 import "./todo_page.css";
 import StatusBar from "./components/StatusBar";
-import AppBar from "./components/AppBar";
 import NavigationBar from "./components/NavigationBar";
 import TaskCard from "./components/TaskCard";
 
@@ -12,18 +11,13 @@ import TaskCard from "./components/TaskCard";
  * Structure:
  *  - StatusBar (top)
  *  - AppBar (custom for Completed Tasks)
- *  - List of completed TaskCard components
+ *  - List of completed TaskCard components (from props.todos)
  *  - NavigationBar (bottom, "Completed" nav selected)
  * Props:
+ *  - todos: array of completed todos ({ id, title, description, ... })
  *  - NavigationBarComponent: optional, for navigation control
  */
-const COMPLETED_TASKS_DEMO = [
-  { id: 1, title: "Finish report", subtitle: "Sent to Mary on July 11" },
-  { id: 2, title: "Grocery shopping", subtitle: "Bought eggs, milk, bread" },
-  { id: 3, title: "Plan vacation", subtitle: "Booked flights, July 18–22" },
-];
-
-export default function CompletedTasksPage({ NavigationBarComponent }) {
+export default function CompletedTasksPage({ NavigationBarComponent, todos = [] }) {
   const Nav = NavigationBarComponent || NavigationBar;
 
   return (
@@ -81,9 +75,19 @@ export default function CompletedTasksPage({ NavigationBarComponent }) {
         alignItems: "center",
         minHeight: 470,
       }} aria-label="Completed Tasks List">
-        {COMPLETED_TASKS_DEMO.map((t) => (
-          <TaskCard key={t.id} title={t.title} subtitle={t.subtitle} />
-        ))}
+        {todos.length === 0 ? (
+          <div style={{ color: "#9395D3", fontWeight: 500, fontSize: 18, marginTop: 32 }}>
+            No completed tasks.
+          </div>
+        ) : (
+          todos.map((t) => (
+            <TaskCard
+              key={t.id}
+              title={t.title}
+              subtitle={t.description || ""}
+            />
+          ))
+        )}
       </main>
       <Nav selected="completed" />
     </div>
