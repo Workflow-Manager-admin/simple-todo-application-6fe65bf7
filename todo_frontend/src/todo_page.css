@@ -1,0 +1,182 @@
+.todo-page-bg {
+  width: 414px;
+  height: 896px;
+  background: #d6d7ef;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+/* Status Bar */
+.status-bar {
+  height: 44px;
+  width: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 16px;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #000;
+}
+.sb-time { font-weight: 600; }
+.sb-icons { display: flex; gap: 6px; }
+.sb-icon-wifi, .sb-icon-cellular, .sb-icon-battery {
+  width: 18px; height: 18px;
+  background: #bdbdbd;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* App Bar */
+.app-bar {
+  height: 74px;
+  width: 100%;
+  background: #9395d3;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 0 24px;
+}
+.app-bar-title {
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.app-bar-icon {
+  width: 32px; height: 32px;
+  background: #fff2;
+  border-radius: 50%;
+  display: inline-block;
+}
+.app-bar-icon.calendar {
+  background: #d6d7ef;
+}
+.app-bar-icon.settings {
+  background: #d6d7ef;
+}
+
+/* Todos List */
+.todos-list {
+  width: 92%;
+  margin: 24px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 470px;
+  overflow-y: auto;
+}
+.todo-item {
+  width: 100%;
+  min-height: 60px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(147, 149, 211, 0.06);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #262626;
+  transition: background 0.2s;
+}
+.todo-item.completed {
+  background: #e0e0e0;
+  text-decoration: line-through;
+  color: #9395d3;
+}
+.todo-check {
+  width: 32px;
+  display: inline-block;
+  font-size: 21px;
+}
+.todo-text {
+  flex: 1;
+}
+
+/* Floating Action Button */
+.fab-btn {
+  position: absolute;
+  right: 32px;
+  bottom: 100px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #9395d3;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.15);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.fab-btn:hover {
+  background: #7678b9;
+}
+.fab-plus {
+  display: inline-block;
+  color: #fff;
+  font-size: 40px;
+  margin-top: -4px;
+  line-height: 1;
+}
+
+/* Navigation Bar */
+.navigation-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 68px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 -2px 8px rgba(147, 149, 211, 0.13);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  z-index: 10;
+}
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  color: #545289;
+  font-weight: 500;
+  font-size: 16px;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-btn.selected, .nav-btn:hover {
+  background: #d6d7ef;
+  color: #9395d3;
+}
+.nav-icon {
+  width: 28px;
+  height: 28px;
+  background: #9395d3;
+  border-radius: 5px;
+  display: inline-block;
+}
+.nav-label { margin-top: 1px; }
+
+/* Smaller screens */
+@media (max-width: 500px) {
+  .todo-page-bg {
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+}
